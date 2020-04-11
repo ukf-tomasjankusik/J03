@@ -8,9 +8,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 
@@ -61,8 +59,15 @@ public class FXMLTableViewController  {
         }
     }
 
-    public void deletePerson(ActionEvent event) {
-        tableView.getItems().removeAll(tableView.getSelectionModel().getSelectedItem());
-        //ObservableList<Person> data = tableView.getItems();
+    @FXML protected void deletePerson(ActionEvent event) {
+        ObservableList<Person> data = tableView.getItems();
+        sql.deletePerson(tableView.getSelectionModel().getSelectedItem().getEmail());
+        data.remove(tableView.getItems().removeAll(tableView.getSelectionModel().getSelectedItem()));
     }
+
+    @FXML protected void Update(ActionEvent event) {
+        ObservableList<Person> data = tableView.getItems();
+        sql.Update(tableView.getSelectionModel().getSelectedItem().getEmail());
+    }
+
 }
